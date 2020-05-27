@@ -11,8 +11,8 @@ function setup() {
     noStroke();
 
     balle = new Balle(width / 2, height / 2);
-    paddleLeft = new PaddleLeft();
-    paddleRight = new PaddleRight(width - 30);
+    paddleLeft = new Paddle(30, 0, 20, 150);
+    paddleRight = new Paddle(width - 30, 0, 20, 150);
 }
 
 function draw() {
@@ -20,15 +20,17 @@ function draw() {
     fill(255);
     drawElements();
     balle.afficher();
+
     paddleLeft.afficher();
+    paddleLeft.bouger(mouseX);
     paddleRight.afficher();
+    paddleRight.bouger(mouseY);
+
     balle.moveBall();
     balle.bounceBall();
 }
 
 function drawElements() {
-    paddleRight.y = mouseY;
-    paddleLeft.y = mouseX;
     textSize(100);
     textAlign(RIGHT)
     text(scoreLeft, width / 2 - 40, 100);
@@ -88,27 +90,18 @@ class Balle {
     }
 }
 
-class PaddleLeft {
-    constructor() {
-        this.x = 30;
-        this.y = mouseX;
-        this.width = 20;
-        this.height = 150;
-    }
-    afficher() {
-        rect(paddleLeft.x, paddleLeft.y, paddleLeft.width, paddleLeft.height);
-    }
-}
-
-class PaddleRight {
-    constructor(_x) {
+class Paddle {
+    constructor(_x, _y, _width, _height) {
         this.x = _x;
-        this.y = mouseY;
-        this.width = 20;
-        this.height = 150;
+        this.y = _y;
+        this.width = _width;
+        this.height = _height;
     }
     afficher() {
         rect(this.x, this.y, this.width, this.height);
+    }
+    bouger(axies) {
+        this.y = axies;
     }
 }
 
