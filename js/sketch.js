@@ -27,6 +27,8 @@ function draw() {
 }
 
 function drawElements() {
+    paddleRight.y = mouseY;
+    paddleLeft.y = mouseX;
     textSize(100);
     textAlign(RIGHT)
     text(scoreLeft, width / 2 - 40, 100);
@@ -84,19 +86,12 @@ class Balle {
             scoreRight += 1;
         }
     }
-    resetBall() {
-        this.x = width / 2;
-        this.y = height / 2;
-        this.speedX = -this.speedX;
-        this.speedY = random(-2, 2);
-
-    }
 }
 
 class PaddleLeft {
     constructor() {
         this.x = 30;
-        this.y = 0;
+        this.y = mouseX;
         this.width = 20;
         this.height = 150;
     }
@@ -108,13 +103,21 @@ class PaddleLeft {
 class PaddleRight {
     constructor(_x) {
         this.x = _x;
-        this.y = 0;
+        this.y = mouseY;
         this.width = 20;
         this.height = 150;
     }
     afficher() {
         rect(this.x, this.y, this.width, this.height);
     }
+}
+
+function resetBall() {
+    balle.x = width / 2;
+    balle.y = height / 2;
+    balle.speedX = -balle.speedX;
+    balle.speedY = random(-2, 2);
+
 }
 
 function windowResized() {
